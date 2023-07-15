@@ -1,9 +1,10 @@
-import "./App.css";
+import "./css/App.css";
+import Canvas from "./components/Canvas";
 
 function App() {
   return (
     <>
-      <div>Portfolio</div>
+      <Canvas />
     </>
   );
 }
