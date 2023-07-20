@@ -1,4 +1,5 @@
 import { useRef, useEffect } from "react";
+import { CanvasProps } from "../types";
 
 interface RingType {
   x: number;
@@ -14,6 +15,8 @@ function ring(
   y: number,
   radius: number,
   growthFactor: number,
+  colour: string,
+  opacity: string,
   ctx: CanvasRenderingContext2D
 ) {
   return {
@@ -25,7 +28,7 @@ function ring(
     draw() {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(255, 0, 255, 0.1)";
+      ctx.strokeStyle = `rgba(${colour}, ${opacity})`;
       ctx.stroke();
     },
 
@@ -36,7 +39,7 @@ function ring(
   };
 }
 
-const Canvas = () => {
+const Canvas = (props: CanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -65,7 +68,17 @@ const Canvas = () => {
     function generateRing() {
       if (!canvas || !ctx) return;
       setTimeout(() => {
-        rings.push(ring(mouse.x, mouse.y, 5, 1.03, ctx));
+        rings.push(
+          ring(
+            mouse.x,
+            mouse.y,
+            5,
+            props.growthFactor,
+            props.colour,
+            props.opacity,
+            ctx
+          )
+        );
         generateRing();
       }, 50);
     }
@@ -88,7 +101,7 @@ const Canvas = () => {
 
     animate();
     generateRing();
-  }, []);
+  }, [props.colour, props.opacity, props.growthFactor]);
 
   return (
     <canvas

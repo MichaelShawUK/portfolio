@@ -1,10 +1,10 @@
 import "./css/App.css";
-import Canvas from "./components/Canvas";
+import Playarea from "./components/Playarea";
 
 function App() {
   return (
     <>
-      <Canvas />
+      <Playarea />
     </>
   );
 }
