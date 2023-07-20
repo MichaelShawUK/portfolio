@@ -1,4 +1,5 @@
 import { CanvasControlsProps } from "../types";
+import StyledCanvasControls from "../css/StyledCanvasControls";
 
 function hexToRGB(hex: string): string {
   const channels = [hex.slice(1, 3), hex.slice(3, 5), hex.slice(5, 7)];
@@ -15,7 +16,7 @@ function hexToRGB(hex: string): string {
 
 const CanvasControls = (props: CanvasControlsProps) => {
   return (
-    <div>
+    <StyledCanvasControls>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -27,31 +28,39 @@ const CanvasControls = (props: CanvasControlsProps) => {
         }}
       >
         <input type="color" defaultValue="#ff00ff"></input>
-        <button>Swap Colours</button>
+        <button>Set Colour</button>
       </form>
-      <input
-        type="range"
-        min="0.1"
-        max="1"
-        step="0.15"
-        onInput={(e) => {
-          if (e.target instanceof HTMLInputElement) {
-            props.setOpacity(e.target.value);
-          }
-        }}
-      ></input>
-      <input
-        type="range"
-        min="1.01"
-        max="1.09"
-        step="0.02"
-        defaultValue="1.03"
-        onInput={(e) => {
-          if (e.target instanceof HTMLInputElement) {
-            props.setGrowthFactor(+e.target.value);
-          }
-        }}
-      ></input>
+      <div className="slider">
+        <label htmlFor="brightness">BRIGHTNESS</label>
+        <input
+          type="range"
+          id="brightness"
+          min="0.1"
+          max="1"
+          step="0.15"
+          onInput={(e) => {
+            if (e.target instanceof HTMLInputElement) {
+              props.setOpacity(e.target.value);
+            }
+          }}
+        ></input>
+      </div>
+      <div className="slider">
+        <label htmlFor="speed">SPEED</label>
+        <input
+          type="range"
+          id="speed"
+          min="1.01"
+          max="1.09"
+          step="0.02"
+          defaultValue="1.03"
+          onInput={(e) => {
+            if (e.target instanceof HTMLInputElement) {
+              props.setGrowthFactor(+e.target.value);
+            }
+          }}
+        ></input>
+      </div>
       <button
         onClick={() => {
           props.setColour("255,0,255");
@@ -62,7 +71,7 @@ const CanvasControls = (props: CanvasControlsProps) => {
       >
         RESET
       </button>
-    </div>
+    </StyledCanvasControls>
   );
 };
 
