@@ -1,45 +1,32 @@
 import { useRef, useEffect } from "react";
-import { CanvasProps } from "../types";
+import { RingType } from "../types";
 
-interface RingType {
-  x: number;
-  y: number;
-  radius: number;
-  growthFactor: number;
-  draw(): void;
-  update(): void;
-}
-
-function ring(
+function createRing(
   x: number,
   y: number,
   radius: number,
-  growthFactor: number,
-  colour: string,
-  opacity: string,
   ctx: CanvasRenderingContext2D
 ) {
   return {
     x,
     y,
     radius,
-    growthFactor,
 
     draw() {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(${colour}, ${opacity})`;
+      ctx.strokeStyle = "rgba(255, 0, 255, 0.1)";
       ctx.stroke();
     },
 
     update() {
       this.draw();
-      this.radius *= this.growthFactor;
+      this.radius *= 1.03;
     },
   };
 }
 
-const Canvas = (props: CanvasProps) => {
+const Canvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -68,17 +55,7 @@ const Canvas = (props: CanvasProps) => {
     function generateRing() {
       if (!canvas || !ctx) return;
       setTimeout(() => {
-        rings.push(
-          ring(
-            mouse.x,
-            mouse.y,
-            5,
-            props.growthFactor,
-            props.colour,
-            props.opacity,
-            ctx
-          )
-        );
+        rings.push(createRing(mouse.x, mouse.y, 5, ctx));
         generateRing();
       }, 50);
     }
@@ -101,7 +78,7 @@ const Canvas = (props: CanvasProps) => {
 
     animate();
     generateRing();
-  }, [props.colour, props.opacity, props.growthFactor]);
+  }, []);
 
   return (
     <canvas
