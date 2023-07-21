@@ -26,6 +26,11 @@ function createRing(
   };
 }
 
+function resizeCanvas(canvas: HTMLCanvasElement): void {
+  canvas.width = document.body.clientWidth;
+  canvas.height = window.innerHeight;
+}
+
 const Canvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -34,6 +39,9 @@ const Canvas = () => {
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+
+    resizeCanvas(canvas);
+    const maxRadius = Math.max(canvas.width, canvas.height);
 
     const mouse = {
       x: canvas.width / 2,
@@ -46,8 +54,7 @@ const Canvas = () => {
     });
 
     window.addEventListener("resize", () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      resizeCanvas(canvas);
     });
 
     const rings: RingType[] = [];
@@ -67,7 +74,6 @@ const Canvas = () => {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       rings.forEach((ring, index) => {
-        const maxRadius = Math.max(canvas.width, canvas.height);
         if (ring.radius > maxRadius) {
           rings.splice(index, 1);
         } else {
@@ -80,14 +86,7 @@ const Canvas = () => {
     generateRing();
   }, []);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      role="presentation"
-      width={window.innerWidth}
-      height={window.innerHeight}
-    ></canvas>
-  );
+  return <canvas ref={canvasRef} role="presentation"></canvas>;
 };
 
 export default Canvas;
