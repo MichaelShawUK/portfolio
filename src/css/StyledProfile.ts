@@ -11,6 +11,7 @@ const StyledProfile = styled.div`
   width: 100%;
   gap: 5rem;
   pointer-events: none;
+  min-height: 600px;
 
   .bold {
     font-weight: bold;
@@ -56,6 +57,23 @@ const StyledProfile = styled.div`
       text-shadow: 1px 1px #444;
       box-shadow: 1px 1px 4px #444;
     }
+  }
+
+  .bio {
+    color: white;
+    position: absolute;
+    bottom: 50px;
+    pointer-events: auto;
+    cursor: pointer;
+
+    &:hover {
+      font-weight: bold;
+    }
+  }
+
+  .arrows {
+    display: inline-block;
+    transform: rotate(-90deg);
   }
 `;
 
