@@ -52,7 +52,7 @@ const StyledProfile = styled.div`
       background: linear-gradient(30deg, black 20%, #222 90%, black);
       color: white;
       padding: 0.5rem 1rem;
-      transform: skew(-10deg);
+      /* transform: skew(-10deg); */
       border-radius: 3px;
       text-shadow: 1px 1px #444;
       box-shadow: 1px 1px 4px #444;
@@ -65,15 +65,20 @@ const StyledProfile = styled.div`
     bottom: 50px;
     pointer-events: auto;
     cursor: pointer;
+    padding: 1rem;
+    transition: transform 0.3s;
 
     &:hover {
       font-weight: bold;
+      transform: translateY(-0.5rem);
     }
   }
 
-  .arrows {
+  .bio::before,
+  .bio::after {
+    content: "->";
     display: inline-block;
-    transform: rotate(-90deg);
+    transform: rotate(90deg);
   }
 `;
 

@@ -37,8 +37,7 @@ const Profile = () => {
           }
         }}
       >
-        <span className="arrows">-&gt;</span> BIO
-        <span className="arrows">-&gt;</span>
+        BIO&nbsp;
       </motion.div>
     </StyledProfile>
   );
